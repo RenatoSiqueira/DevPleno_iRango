@@ -1,55 +1,56 @@
 <% include elements/header %>
 
-  <div class="container">
-    <h2>Novo restaurante</h2>
-    <p>
-      <a href="/restaurantes">Listar restaurantes</a>
-    </p>
-    <form method="post">
-      <div class="form-group">
-        <label for="nome">Nome do restaurante:</label>
-        <input type="text" class="form-control" id="nome" name="nome">
-      </div>
-      <div class="form-group">
-        <div id="map" style="height: 400px;"></div>
-        <input type="hidden" name="lat" id="lat">
-        <input type="hidden" name="lng" id="lng">
-      </div>
-      <button type="submit" class="btn btn-primary">Salvar</button>
-    </form>
-  </div>
+<div class="container">
+  <h2>Novo restaurante</h2>
+  <p>
+    <a href="/restaurantes">Listar restaurantes</a>
+  </p>
+  <form method="post">
+    <div class="form-group">
+      <label for="nome">Nome do restaurante:</label>
+      <input type="text" class="form-control" id="nome" name="nome">
+    </div>
+    <div class="form-group">
+      <div id="map" style="height: 400px;"></div>
+      <input type="hidden" name="lat" id="lat">
+      <input type="hidden" name="lng" id="lng">
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+  </form>
+</div>
 
-  <script>
-    function initMap(){
-      const initialLocation = { lat: -25.363, lng: 131.044 }
-      const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
-        center: initialLocation
-      })
+<script>
+  function initMap() {
+    const initialLocation = { lat: -25.363, lng: 131.044 }
+    const map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 16,
+      center: initialLocation
+    })
 
-      const marker = new google.maps.Marker({
-        position: initialLocation,
-        map: map,
-        draggable: true
-      })
+    const marker = new google.maps.Marker({
+      position: initialLocation,
+      map: map,
+      draggable: true
+    })
 
-      if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(function(position){
-          var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-          marker.setPosition(latlng)
-          map.panTo(latlng)
-        })
-      }
-      
-      marker.addListener('dragend', function(){
-        document.getElementById('lat').value = marker.position.lat()
-        document.getElementById('lng').value = marker.position.lng()
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+        marker.setPosition(latlng)
+        map.panTo(latlng)
       })
     }
-  </script>
 
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKx1YannnmBWZl6NNtTOYU_C5DMgu8X_0&callback=initMap"
+    marker.addListener('dragend', function () {
+      document.getElementById('lat').value = marker.position.lat()
+      document.getElementById('lng').value = marker.position.lng()
+    })
+  }
+</script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2Q-yuxdDBFlisMhmHSJvJWzfUY5GettA&callback=initMap"
   type="text/javascript"></script>
 
 
-  <% include elements/footer %>
+<% include elements/footer %>

@@ -5,12 +5,14 @@ const mongodb = require('mongodb')
 const bodyParser = require('body-parser')
 const MongoClient = mongodb.MongoClient
 const ObjectID = mongodb.ObjectID
+const cors = require('cors')
 
 const port = process.env.PORT || 3000
 const MONGOSERVER = process.env.MONGOSERVER || 'mongodb://localhost:27017/irango'
 let database
 
 app.set('view engine', 'ejs')
+app.use(cors())
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded())
 
